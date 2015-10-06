@@ -1,0 +1,53 @@
+buildscript {
+	repositories {
+	    mavenCentral()
+	}
+	dependencies {
+			classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+		}
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Spring Security Demo',
+                   'Implementation-Version': version
+    }
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile("org.springframework.boot:spring-boot-starter-test:1.1.5.RELEASE")
+}
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ["src/test/**"]
+        }
+    }
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
